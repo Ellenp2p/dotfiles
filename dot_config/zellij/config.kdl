@@ -1,0 +1,29 @@
+// Zellij 终端复用器配置
+// 定位：鼠标友好、默认键位、低侵入
+
+default_shell "fish"
+
+// 鼠标支持：点击切换 pane、滚轮滚动、拖拽选择
+mouse_mode true
+
+// 复制粘贴配置
+// 自动检测系统剪贴板工具
+copy_command "pbcopy"
+copy_clipboard "system"
+
+// 滚动缓冲区大小（行数）
+scroll_buffer_size 10000
+
+// 主题（使用内置主题即可，Starship 负责 prompt 美化）
+theme "default"
+
+// 简化状态栏，让出更多空间给内容
+ui {
+    pane_frames {
+        rounded_corners true
+        hide_session_name false
+    }
+}
+
+// 布局目录（可选：自定义布局放这里）
+// layout_dir "~/.config/zellij/layouts"

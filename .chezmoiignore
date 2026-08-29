@@ -1,0 +1,9 @@
+# chezmoi 忽略文件
+# 以下文件不会被 chezmoi 管理，仅作为仓库辅助文件存在
+
+README.md
+install.sh
+uninstall.sh
+LICENSE
+.git
+.github

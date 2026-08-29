@@ -1,0 +1,90 @@
+# Starship 提示符配置
+# 定位：简洁、信息丰富、跨平台一致
+
+# 整体格式
+format = """
+$directory$git_branch$git_status$fill $cmd_duration$line_break$character"""
+
+# 右侧填充，将时间和信息推到右边
+[fill]
+symbol = " "
+
+# ==================== 核心组件 ====================
+
+# 输入提示符
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+vicmd_symbol = "[❮](bold green) "
+
+# 当前目录
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+format = "[$path]($style) "
+
+# 主目录显示为 ~
+[directory.substitutions]
+"Documents" = "📄"
+"Downloads" = "📥"
+"Music" = "🎵"
+"Pictures" = "🖼️"
+
+# ==================== Git 信息 ====================
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch]($style) "
+truncation_length = 20
+
+[git_status]
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇡${ahead_count}⇣${behind_count}"
+modified = "✎"
+staged = "✓"
+untracked = "?"
+conflicted = "✕"
+style = "bold yellow"
+format = '([$all_status$ahead_behind]($style) )'
+
+# ==================== 执行时间 ====================
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration](bold yellow)"
+show_notifications = false
+
+# ==================== 上下文信息 ====================
+
+# SSH 连接时显示主机名
+[hostname]
+ssh_only = true
+format = "[$ssh_symbol$hostname](bold red) "
+disabled = false
+
+# 用户名（root 时红色警告）
+[username]
+style_user = "bold blue"
+style_root = "bold red"
+format = "[$user]($style)@"
+show_always = false
+disabled = false
+
+# ==================== 语言/工具版本（按需启用） ====================
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+# 如需显示当前目录下的 Node/Python 版本，改为 disabled = false 即可
