@@ -363,10 +363,10 @@ echo ""
 echo -e "${YELLOW}--- 步骤 7: 应用 dotfiles 配置 ---${NC}"
 
 if command -v chezmoi &>/dev/null; then
-    if chezmoi init --source="$SCRIPT_DIR/dotfiles" --apply 2>/dev/null; then
+    if chezmoi init --source="$SCRIPT_DIR" --apply 2>/dev/null; then
         ok "配置应用完成"
     else
-        error "chezmoi apply 失败，请检查: chezmoi init --source=$SCRIPT_DIR/dotfiles --apply"
+        error "chezmoi apply 失败，请检查: chezmoi init --source=$SCRIPT_DIR --apply"
         exit 1
     fi
 else
