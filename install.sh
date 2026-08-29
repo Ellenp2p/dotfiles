@@ -207,12 +207,21 @@ else
                 SKIPPED_PACKAGES+=("fish")
             fi
             ;;
-        debian)
-            if have_sudo; then
-                sudo apt-get update -qq >/dev/null 2>&1
-                sudo apt-get install -y fish >/dev/null 2>&1 && ok "Fish 安装成功" || FAILED_PACKAGES+=("fish")
+        debian|ubuntu)
+            # Ubuntu 的 Fish 在 universe 仓库，确保已启用
+            if [[ "$DISTRO" == "ubuntu" ]] && ! grep -q "^deb .*universe" /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null; then
+                info "启用 Ubuntu universe 仓库..."
+                apt-get install -y software-properties-common >/dev/null 2>&1 || true
+                add-apt-repository universe -y >/dev/null 2>&1 || true
+            fi
+            
+            info "正在安装 Fish..."
+            apt-get update -qq
+            if apt-get install -y fish; then
+                ok "Fish 安装成功"
             else
-                SKIPPED_PACKAGES+=("fish")
+                error "Fish 安装失败"
+                FAILED_PACKAGES+=("fish")
             fi
             ;;
         arch)
