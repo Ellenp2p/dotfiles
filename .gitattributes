@@ -1,0 +1,16 @@
+# 强制所有 shell 脚本使用 LF 换行符，避免 Windows CRLF 导致的问题
+*.sh text eol=lf
+*.bash text eol=lf
+*.fish text eol=lf
+
+# 配置文件也保持 LF
+*.toml text eol=lf
+*.lua text eol=lf
+*.kdl text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+
+# Markdown 和文档用平台默认
+*.md text
+*.txt text
