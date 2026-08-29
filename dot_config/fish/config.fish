@@ -1,6 +1,10 @@
 # Fish 交互式 Shell 配置
 # 定位：低侵入、开箱即用、配合 Zellij 使用
 
+# ==================== 路径（必须在 Starship 之前）====================
+fish_add_path $HOME/.local/bin
+fish_add_path /opt/homebrew/bin
+
 # ==================== 核心集成 ====================
 
 # Starship 提示符
@@ -13,10 +17,6 @@ if command -v zellij >/dev/null
     # 让 zellij 的补全文件被 fish 加载
     # zellij completions fish > ~/.config/fish/completions/zellij.fish
 end
-
-# ==================== 路径 ====================
-fish_add_path $HOME/.local/bin
-fish_add_path /opt/homebrew/bin
 
 # ==================== 环境变量 ====================
 set -gx EDITOR nano
