@@ -237,7 +237,7 @@ else
         # 静态二进制安装
         info "从 GitHub 下载 Zellij 二进制..."
         
-        local zellij_arch="$ARCH"
+        zellij_arch="$ARCH"
         [[ "$ARCH" == "aarch64" && "$OS" == "macos" ]] && zellij_arch="aarch64"
         
         ZELLIJ_URL="https://github.com/zellij-org/zellij/releases/latest/download/zellij-${zellij_arch}-unknown-linux-musl.tar.gz"
