@@ -287,9 +287,18 @@ else
         FAILED_PACKAGES+=("starship")
     fi
 fi
+# === 配置 Bash 的 Starship ===
+# 即使 Fish 不是默认 shell，Bash 里也能看到 Starship 提示符
+if command -v starship &>/dev/null; then
+    if [[ -f "$HOME/.bashrc" ]] && ! grep -q "starship init bash" "$HOME/.bashrc" 2>/dev/null; then
+        echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
+        ok "Bash 已配置 Starship"
+    fi
+fi
 echo ""
 
 # === 安装 WezTerm ===
+echo ""
 echo -e "${YELLOW}--- 步骤 5: 安装 WezTerm ---${NC}"
 
 if command -v wezterm &>/dev/null; then
