@@ -76,8 +76,32 @@ is_wsl() {
     [[ -f /proc/version ]] && grep -qi microsoft /proc/version
 }
 
-# 检测包管理器
+# 检测发行版
 get_distro() {
+    # 优先读取 /etc/os-release 精确识别
+    if [[ -f /etc/os-release ]]; then
+        local id id_like
+        id=$(source /etc/os-release && echo "$ID")
+        id_like=$(source /etc/os-release && echo "$ID_LIKE" 2>/dev/null)
+        
+        case "$id" in
+            ubuntu) echo "ubuntu"; return ;;
+            debian) echo "debian"; return ;;
+            arch|manjaro) echo "arch"; return ;;
+            fedora|rhel|centos|rocky|almalinux) echo "fedora"; return ;;
+            alpine) echo "alpine"; return ;;
+        esac
+        
+        # fallback: ID_LIKE
+        case "$id_like" in
+            *ubuntu*) echo "ubuntu"; return ;;
+            *debian*) echo "debian"; return ;;
+            *arch*) echo "arch"; return ;;
+            *fedora*|*rhel*) echo "fedora"; return ;;
+        esac
+    fi
+    
+    # 回退到包管理器检测
     if [[ "$OS" == "macos" ]]; then
         echo "macos"
     elif command -v apt &>/dev/null; then
