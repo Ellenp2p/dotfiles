@@ -74,6 +74,61 @@ chezmoi edit ~/.config/fish/config.fish
 chezmoi apply
 ```
 
+## 容器测试（wslc / Docker）
+
+在干净的容器里测试本配置，不影响主机环境。
+
+### 使用 wslc（推荐 Windows 用户）
+
+```powershell
+# 一键测试：自动安装并进入交互式 Fish
+wslc run -it --rm `
+  -v "${env:USERPROFILE}\Documents\Kimi\Workspaces\工作环境\终端环境配置:/dotfiles" `
+  ubuntu:latest bash /dotfiles/test-entry.sh
+```
+
+### 使用 Docker
+
+```bash
+# 一键测试
+docker run -it --rm \
+  -v "$(pwd):/dotfiles" \
+  ubuntu:latest bash /dotfiles/test-entry.sh
+```
+
+### 手动测试（保留容器调试）
+
+```powershell
+# 1. 启动容器（不自动删除）
+wslc run -it --name dotfiles-test `
+  -v "${env:USERPROFILE}\Documents\Kimi\Workspaces\工作环境\终端环境配置:/dotfiles" `
+  ubuntu:latest bash
+
+# 2. 容器里手动执行
+cd /dotfiles
+bash install.sh
+fish
+
+# 3. 退出后清理
+wslc container stop dotfiles-test
+wslc container rm dotfiles-test
+```
+
+> **注意**：WezTerm 是 GUI 应用，容器内无法安装，会被自动跳过。其他核心组件（Fish、Zellij、Starship）会正常安装。
+
+## 卸载
+
+```bash
+# 查看当前配置与仓库的差异
+chezmoi diff
+
+# 编辑配置
+chezmoi edit ~/.config/fish/config.fish
+
+# 重新应用配置
+chezmoi apply
+```
+
 ## 卸载
 
 ```bash
