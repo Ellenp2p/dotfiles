@@ -13,7 +13,30 @@
 
 ## 快速开始
 
-### 方式一：用 chezmoi 一键应用（推荐）
+### 方式一：用 chezmoi 一键应用配置（推荐）
+
+```bash
+# 安装 chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+# 应用配置文件（fish/zellij/starship/wezterm 配置）
+chezmoi init --apply https://github.com/Ellenp2p/dotfiles.git
+
+# 安装 Fish / Zellij / Starship / WezTerm 等软件
+cd ~/.local/share/chezmoi
+bash install.sh
+```
+
+> chezmoi 只管理配置文件（dotfiles），不自动安装软件。`install.sh` 负责检测系统并安装 Fish、Zellij、Starship、WezTerm。
+
+### 方式二：手动克隆 + 安装脚本
+
+```bash
+git clone https://github.com/Ellenp2p/dotfiles.git
+cd dotfiles
+bash install.sh
+```
 
 ```bash
 # 安装 chezmoi
@@ -119,20 +142,7 @@ wslc container rm dotfiles-test
 ## 卸载
 
 ```bash
-# 查看当前配置与仓库的差异
-chezmoi diff
-
-# 编辑配置
-chezmoi edit ~/.config/fish/config.fish
-
-# 重新应用配置
-chezmoi apply
-```
-
-## 卸载
-
-```bash
-cd dotfiles
+cd ~/.local/share/chezmoi
 ./uninstall.sh
 ```
 
