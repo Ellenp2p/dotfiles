@@ -68,6 +68,18 @@ check_network() {
 
 # 检测 sudo 权限
 have_sudo() {
+    # 方法1: sudo 无需密码
+    sudo -n true 2>/dev/null && return 0
+    
+    # 方法2: 用户在 sudo 组
+    groups 2>/dev/null | grep -Eqw 'sudo|wheel|admin' && return 0
+    
+    # 方法3: 当前是 root
+    [[ $EUID -eq 0 ]] && return 0
+    
+    return 1
+}
+have_sudo() {
     sudo -n true 2>/dev/null
 }
 
