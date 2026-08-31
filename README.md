@@ -21,13 +21,13 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
 export PATH="$HOME/.local/bin:$PATH"
 
 # 应用本仓库配置
-chezmoi init --apply https://github.com/YOUR_USERNAME/dotfiles.git
+chezmoi init --apply https://github.com/Ellenp2p/dotfiles.git
 ```
 
 ### 方式二：手动克隆 + 安装脚本
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/dotfiles.git
+git clone https://github.com/Ellenp2p/dotfiles.git
 cd dotfiles
 chmod +x install.sh
 ./install.sh
